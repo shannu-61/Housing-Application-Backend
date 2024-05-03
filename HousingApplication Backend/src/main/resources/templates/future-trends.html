@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Future Trends</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .content {
+            max-width: 1000px;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        .filter-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .filter-form .form-group {
+            width: 1%;
+            margin-right: 5px;
+        }
+
+        .filter-form button {
+            margin-top: 5px;
+        }
+
+        .prediction-result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <h2>Welcome to Future Trends</h2>
+
+    <!-- Form for predicting future trends -->
+    <form th:action="@{/api/future-trends/predict}" method="get" class="filter-form">
+        <div class="form-group">
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year" class="form-control" placeholder="Enter year">
+        </div>
+        <div class="form-group">
+            <label for="homeValueIncreasePercentage">Home Value Increase (%):</label>
+            <input type="text" id="homeValueIncreasePercentage" name="homeValueIncreasePercentage" class="form-control" placeholder="Enter percentage">
+        </div>
+        <div class="form-group">
+            <label for="homeSalesDecreasePercentage">Home Sales Decrease (%):</label>
+            <input type="text" id="homeSalesDecreasePercentage" name="homeSalesDecreasePercentage" class="form-control" placeholder="Enter percentage">
+        </div>
+        <div class="form-group">
+            <label for="mortgageRate">Mortgage Rate:</label>
+            <input type="text" id="mortgageRate" name="mortgageRate" class="form-control" placeholder="Enter mortgage rate">
+        </div>
+        <button type="submit" class="btn btn-primary">Predict Future Trend</button>
+    </form>
+
+    <!-- Display the prediction result -->
+    <div th:if="${predictionResult}" class="prediction-result">
+        <h4>Prediction Result:</h4>
+        <p th:text="${predictionResult}"></p>
+    </div>
+
+    <!-- Link to view all future trends -->
+    <a th:href="@{/api/future-trends/all}" class="btn btn-info">View All Future Trends</a>
+</div>
+</body>
+</html>

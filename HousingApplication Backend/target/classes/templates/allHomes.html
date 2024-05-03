@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to your house searching</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            color: #495057;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .filter-form, .registration-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .registration-form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h3 {
+            color: #28a745;
+        }
+
+        .registration-form label {
+            color: #495057;
+        }
+
+        .registration-form input {
+            border-color: #28a745;
+        }
+
+        .registration-form button {
+            background-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <h2 th:text="${message}">Welcome to your house searching</h2>
+
+    <!-- Form for filtering by city, ID, and price -->
+    <form th:action="@{/api/home/by-city}" method="get" class="filter-form">
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" class="form-control" placeholder="Enter city">
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <form th:action="@{/api/home/fetch/{id}}" method="get" class="filter-form">
+        <div class="form-group">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" class="form-control" placeholder="Enter ID">
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <form th:action="@{/api/home/budgethomes}" method="get" class="filter-form">
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" class="form-control" placeholder="Enter price">
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- Display the filtered homes -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Price</th>
+            <th>Bedrooms</th>
+            <th>Bathrooms</th>
+            <th>Sqft Living</th>
+            <th>Sqft Lot</th>
+            <th>Floors</th>
+            <th>Waterfront</th>
+            <th>View</th>
+            <th>Sqft Above</th>
+            <th>Sqft Basement</th>
+            <th>Year Built</th>
+            <th>Year Renovated</th>
+            <th>City</th>
+            <!-- Add more columns as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="home, iterator: ${homes}">
+            <th th:text="${iterator.index}" scope="row">1</th>
+            <td th:text="${home.price}"></td>
+            <td th:text="${home.bedrooms}"></td>
+            <td th:text="${home.bathrooms}"></td>
+            <td th:text="${home.sqft_living}"></td>
+            <td th:text="${home.sqft_lot}"></td>
+            <td th:text="${home.floors}"></td>
+            <td th:text="${home.waterfront}"></td>
+            <td th:text="${home.view}"></td>
+            <td th:text="${home.sqft_above}"></td>
+            <td th:text="${home.sqft_basement}"></td>
+            <td th:text="${home.yr_built}"></td>
+            <td th:text="${home.yr_renovated}"></td>
+            <td th:text="${home.address.city}"></td>
+            <!-- Add more columns as needed -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="registration-form">
+    <h3>User Registration</h3>
+    <form th:action="@{/register}" method="post">
+        <div class="form-group">
+            <label for="registerUsername">Username:</label>
+            <input type="text" id="registerUsername" name="username" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="registerEmail">Email:</label>
+            <input type="email" id="registerEmail" name="email" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="registerPassword">Password:</label>
+            <input type="password" id="registerPassword" name="password" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+</div>
+
+
+
+</body>
+</html>

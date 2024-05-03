@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historical Trends</title>
+</head>
+<body>
+
+<h2>Historical Trends</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Year</th>
+        <th>Home Value Increase (%)</th>
+        <th>Home Sales Decrease (%)</th>
+        <th>Mortgage Rate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over historicalDataList and display data -->
+    <tr th:each="historicalData : ${historicalDataList}">
+        <td th:text="${historicalData.year}"></td>
+        <td th:text="${historicalData.homeValueIncreasePercentage}"></td>
+        <td th:text="${historicalData.homeSalesDecreasePercentage}"></td>
+        <td th:text="${historicalData.mortgageRate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
